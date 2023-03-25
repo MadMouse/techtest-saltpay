@@ -1,0 +1,29 @@
+def build_versions = [:]
+build_versions.minSdk = 24
+build_versions.targetSdk = 33
+build_versions.compileSdk = 33
+ext.build_versions = build_versions
+
+
+def lib_versions = [:]
+lib_versions.java = JavaVersion.VERSION_1_8
+lib_versions.room = '2.4.3'
+lib_versions.hilt = '2.45'
+lib_versions.core_ktx = '1.7.0'
+lib_versions.appcompat = '1.6.1'
+lib_versions.lifecycle = '2.6.1'
+lib_versions.material = '1.8.0'
+lib_versions.recyclerview = '1.2.1'
+lib_versions.constraintLayout = '2.1.4'
+lib_versions.composeVersion = '1.4.0'
+lib_versions.composeMaterialVersion = '1.4.0'
+lib_versions.composeMaterial3Version = '1.0.1'
+lib_versions.activityCompose = '1.7.0'
+ext.lib_versions = lib_versions
+
+
+def test_versions = [:]
+test_versions.junit = '4.13.2'
+test_versions.testJUnit = '1.1.5'
+test_versions.espressoCore = '3.5.1'
+ext.test_versions = test_versions

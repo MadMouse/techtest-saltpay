@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'co.saltpay.crystalclear'
+    compileSdk build_versions.compileSdk
+
+    defaultConfig {
+        applicationId "co.saltpay.crystalclear"
+        minSdk build_versions.minSdk
+        targetSdk build_versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility lib_versions.java
+        targetCompatibility lib_versions.java
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.4"
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:$lib_versions.core_ktx"
+    implementation "androidx.appcompat:appcompat:$lib_versions.appcompat"
+
+    implementation "com.google.dagger:hilt-android:$lib_versions.hilt"
+    kapt "com.google.dagger:hilt-compiler:$lib_versions.hilt"
+
+    implementation "com.google.android.material:material:$lib_versions.material"
+    implementation "androidx.constraintlayout:constraintlayout:$lib_versions.constraintLayout"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lib_versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lib_versions.lifecycle"
+    implementation "androidx.constraintlayout:constraintlayout:$lib_versions.constraintLayout"
+    implementation "androidx.activity:activity-compose:$lib_versions.activityCompose"
+    implementation "androidx.compose.runtime:runtime-livedata:$lib_versions.composeVersion"
+    implementation "androidx.compose.ui:ui:$lib_versions.composeVersion"
+    implementation "androidx.compose.ui:ui-util:$lib_versions.composeVersion"
+    implementation "androidx.compose.ui:ui-tooling:$lib_versions.composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$lib_versions.composeVersion"
+    implementation "androidx.compose.material:material:$lib_versions.composeMaterialVersion"
+    implementation "androidx.compose.material:material-icons-extended:$lib_versions.composeMaterialVersion"
+
+
+    testImplementation "junit:junit:$test_versions.junit"
+    androidTestImplementation "androidx.test.ext:junit:$test_versions.testJUnit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$test_versions.espressoCore"
+}
