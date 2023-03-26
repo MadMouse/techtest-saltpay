@@ -19,6 +19,9 @@ lib_versions.composeVersion = '1.4.0'
 lib_versions.composeMaterialVersion = '1.4.0'
 lib_versions.composeMaterial3Version = '1.0.1'
 lib_versions.activityCompose = '1.7.0'
+lib_versions.retrofit = '2.9.0'
+lib_versions.httpOkLogger = '4.10.0'
+lib_versions.gson = '2.10.1'
 ext.lib_versions = lib_versions
 
 
@@ -26,4 +29,5 @@ def test_versions = [:]
 test_versions.junit = '4.13.2'
 test_versions.testJUnit = '1.1.5'
 test_versions.espressoCore = '3.5.1'
+test_versions.hilt= '2.44'
 ext.test_versions = test_versions

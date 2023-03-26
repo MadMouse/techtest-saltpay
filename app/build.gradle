@@ -44,8 +44,14 @@ dependencies {
     implementation "androidx.core:core-ktx:$lib_versions.core_ktx"
     implementation "androidx.appcompat:appcompat:$lib_versions.appcompat"
 
+    //Hilt Dependencies
     implementation "com.google.dagger:hilt-android:$lib_versions.hilt"
     kapt "com.google.dagger:hilt-compiler:$lib_versions.hilt"
+
+    testAnnotationProcessor "com.google.dagger:hilt-android-compiler:$test_versions.hilt"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$test_versions.hilt"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$test_versions.hilt"
+
 
     implementation "com.google.android.material:material:$lib_versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$lib_versions.constraintLayout"
@@ -53,6 +59,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lib_versions.lifecycle"
     implementation "androidx.constraintlayout:constraintlayout:$lib_versions.constraintLayout"
     implementation "androidx.activity:activity-compose:$lib_versions.activityCompose"
+
     implementation "androidx.compose.runtime:runtime-livedata:$lib_versions.composeVersion"
     implementation "androidx.compose.ui:ui:$lib_versions.composeVersion"
     implementation "androidx.compose.ui:ui-util:$lib_versions.composeVersion"
@@ -60,6 +67,12 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$lib_versions.composeVersion"
     implementation "androidx.compose.material:material:$lib_versions.composeMaterialVersion"
     implementation "androidx.compose.material:material-icons-extended:$lib_versions.composeMaterialVersion"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$lib_versions.retrofit2"
+    implementation "com.squareup.retrofit2:converter-gson:$lib_versions.retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$lib_versions.httpOkLogging"
+    implementation "com.google.code.gson:gson:$lib_versions.gson"
 
 
     testImplementation "junit:junit:$test_versions.junit"
