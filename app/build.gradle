@@ -19,7 +19,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix '.dev'
+            buildConfigField "String", "BASE_URL", '"https://itunes.apple.com"'
+        }
+
         release {
+            //TODO Update to production url.
+            buildConfigField "String", "BASE_URL", '"https://<replace with production url"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -74,8 +81,15 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$lib_versions.httpOkLogger"
     implementation "com.google.code.gson:gson:$lib_versions.gson"
 
+    testImplementation "com.squareup.okhttp3:mockwebserver:$test_versions.mockwebserver"
+
     testImplementation "io.mockk:mockk-android:$test_versions.mockk"
     testImplementation "io.mockk:mockk-agent:$test_versions.mockk"
+
+    testImplementation "junit:junit:$test_versions.junit"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$test_versions.coroutines"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$test_versions.coroutines"
+    testImplementation "com.google.truth:truth:$test_versions.google_truth"
 
     testImplementation "junit:junit:$test_versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$test_versions.testJUnit"
