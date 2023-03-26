@@ -71,9 +71,11 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$lib_versions.retrofit2"
     implementation "com.squareup.retrofit2:converter-gson:$lib_versions.retrofit2"
-    implementation "com.squareup.okhttp3:logging-interceptor:$lib_versions.httpOkLogging"
+    implementation "com.squareup.okhttp3:logging-interceptor:$lib_versions.httpOkLogger"
     implementation "com.google.code.gson:gson:$lib_versions.gson"
 
+    testImplementation "io.mockk:mockk-android:$test_versions.mockk"
+    testImplementation "io.mockk:mockk-agent:$test_versions.mockk"
 
     testImplementation "junit:junit:$test_versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$test_versions.testJUnit"
