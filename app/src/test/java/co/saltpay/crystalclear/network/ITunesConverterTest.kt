@@ -65,7 +65,7 @@ class ITunesConverterTest {
             assertEquals(2, result.body()?.feed?.entry?.size)
             assertEquals(200, result.code())
 
-            val convertedObject = converter.convert(result.body())
+            val convertedObject = converter.convert(result.body()!!)
             assertEquals(2, convertedObject?.entries?.size)
 
             val gson = Gson()

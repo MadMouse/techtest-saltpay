@@ -5,6 +5,7 @@ import co.saltpay.crystalclear.core.model.TopAlbums
 import co.saltpay.crystalclear.core.model.itunes.ITunesTopAlbums
 import co.saltpay.crystalclear.core.network.ITunesApiService
 import com.google.gson.Gson
+import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
@@ -37,15 +38,13 @@ internal class MediaRepositoryImplTest {
 
     @Before
     fun setup() {
-
+        MockKAnnotations.init(this)
         val defaultNetworkResponseBody = loadFileStream<ITunesTopAlbums>("testdata/itunes_us_2_valid_response.json")
         val mockNetworkResponse: Response<ITunesTopAlbums> = mockk()
 
-        mockApiService = mockk()
         coEvery { mockApiService.getTopPlayedAlbumsForCountry(any(), any()) } returns mockNetworkResponse
         every { mockNetworkResponse.body() } returns defaultNetworkResponseBody
 
-        mockConverter = mockk()
         val defaultConvertedResponse = loadFileStream<TopAlbums>("testdata/converted_2_us.json")
         every { mockConverter.convert(any()) } returns defaultConvertedResponse
 
