@@ -1,11 +1,10 @@
-package co.saltpay.crystalclear.model.itunes
+package co.saltpay.crystalclear.core.model.itunes
 
 import com.google.gson.annotations.SerializedName
 
-
 data class Feed(
     @SerializedName("author") var author: Author?,
-    @SerializedName("entry") var entry: ArrayList<Entry>,
+    @SerializedName("entry") var entry: ArrayList<ITunesEntry>,
     @SerializedName("updated") var updated: Label,
     @SerializedName("rights") var rights: Label,
     @SerializedName("title") var title: Label,

@@ -1,4 +1,4 @@
-package co.saltpay.crystalclear.model.itunes
+package co.saltpay.crystalclear.core.model.itunes
 
 import com.google.gson.annotations.SerializedName
 

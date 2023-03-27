@@ -1,6 +1,6 @@
 package co.saltpay.crystalclear.core.network
 
-import co.saltpay.crystalclear.model.itunes.ITunesTopAlbums
+import co.saltpay.crystalclear.core.model.itunes.ITunesTopAlbums
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

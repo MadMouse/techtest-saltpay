@@ -77,15 +77,15 @@ class ITunesApiServiceTest {
     @Test
     fun `WHEN result only has a single entry THEN IllegalStateException Expected BEGIN_ARRAY but was BEGIN_OBJECT is thrown`() {
         mockServer.enqueueResponse("testdata/itunes_us_1_valid_response.json", 200)
-        val exception: java.lang.Exception = assertThrows(JsonSyntaxException::class.java) {
+        assertThrows(JsonSyntaxException::class.java) {
             runBlocking {
                 itunesApiService.getTopPlayedAlbumsForCountry(5)
             }
-        };
+        }
     }
 
     @Test
-    fun `WHEN Server 500 error is thrown THEN code will be 500 AND body will be null AND message will hold "Server Error" `() {
+    fun `WHEN Server 500 error is thrown THEN code will be 500 AND body will be null AND message will hold Server Error `() {
         mockServer.enqueueResponse("testdata/itunes_us_1_valid_response.json", 500)
         runBlocking {
             val result = itunesApiService.getTopPlayedAlbumsForCountry(5)
@@ -96,7 +96,7 @@ class ITunesApiServiceTest {
     }
 
     @Test
-    fun `WHEN Server 404 error is thrown THEN code will be 404 AND body will be null AND message will hold "Client Error" `() {
+    fun `WHEN Server 404 error is thrown THEN code will be 404 AND body will be null AND message will hold Client Error `() {
         mockServer.enqueueResponse("testdata/itunes_us_1_valid_response.json", 404)
         runBlocking {
             val result = itunesApiService.getTopPlayedAlbumsForCountry(5)
@@ -121,21 +121,21 @@ class ITunesApiServiceTest {
 
             assertEquals(
                 "https://is4-ssl.mzstatic.com/image/thumb/Music113/v4/7d/24/14/7d241439-671a-d957-9613-2f738f43a064/196589485991.jpg/55x55bb.png",
-                item1?.image?.get(0)?.label
+                item1?.images?.get(0)?.label
             )
-            assertEquals("55", item1?.image?.get(0)?.attributes?.height)
+            assertEquals("55", item1?.images?.get(0)?.attributes?.height)
             assertEquals(
                 "https://is3-ssl.mzstatic.com/image/thumb/Music113/v4/7d/24/14/7d241439-671a-d957-9613-2f738f43a064/196589485991.jpg/60x60bb.png",
-                item1?.image?.get(1)?.label
+                item1?.images?.get(1)?.label
 
             )
-            assertEquals("60", item1?.image?.get(1)?.attributes?.height)
+            assertEquals("60", item1?.images?.get(1)?.attributes?.height)
             assertEquals(
                 "https://is2-ssl.mzstatic.com/image/thumb/Music113/v4/7d/24/14/7d241439-671a-d957-9613-2f738f43a064/196589485991.jpg/170x170bb.png",
-                item1?.image?.get(2)?.label
+                item1?.images?.get(2)?.label
 
             )
-            assertEquals("170", item1?.image?.get(2)?.attributes?.height)
+            assertEquals("170", item1?.images?.get(2)?.attributes?.height)
             assertEquals("18", item1?.itemCount?.label)
             assertEquals("$13.99", item1?.price?.label)
             assertEquals("13.99", item1?.price?.attributes?.amount)
@@ -167,20 +167,20 @@ class ITunesApiServiceTest {
 
             assertEquals(
                 "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/b9/e3/01/b9e3017a-e072-d408-c017-488a2a8609e7/196589699763.jpg/55x55bb.png",
-                item2?.image?.get(0)?.label
+                item2?.images?.get(0)?.label
 
             )
-            assertEquals("55", item2?.image?.get(0)?.attributes?.height)
+            assertEquals("55", item2?.images?.get(0)?.attributes?.height)
             assertEquals(
                 "https://is3-ssl.mzstatic.com/image/thumb/Music126/v4/b9/e3/01/b9e3017a-e072-d408-c017-488a2a8609e7/196589699763.jpg/60x60bb.png",
-                item2?.image?.get(1)?.label
+                item2?.images?.get(1)?.label
             )
-            assertEquals("60", item1?.image?.get(1)?.attributes?.height)
+            assertEquals("60", item1?.images?.get(1)?.attributes?.height)
             assertEquals(
                 "https://is2-ssl.mzstatic.com/image/thumb/Music126/v4/b9/e3/01/b9e3017a-e072-d408-c017-488a2a8609e7/196589699763.jpg/170x170bb.png",
-                item2?.image?.get(2)?.label
+                item2?.images?.get(2)?.label
             )
-            assertEquals("170", item2?.image?.get(2)?.attributes?.height)
+            assertEquals("170", item2?.images?.get(2)?.attributes?.height)
             assertEquals("12", item2?.itemCount?.label)
             assertEquals("$10.99", item2?.price?.label)
             assertEquals("10.99", item2?.price?.attributes?.amount)
