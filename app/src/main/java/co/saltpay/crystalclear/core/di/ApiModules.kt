@@ -1,13 +1,17 @@
 package co.saltpay.crystalclear.core.di
 
 import co.saltpay.crystalclear.BuildConfig
-import co.saltpay.crystalclear.core.network.ITuneApiService
+import co.saltpay.crystalclear.core.converter.ITunesAlbumConverter
+import co.saltpay.crystalclear.core.model.TopAlbums
+import co.saltpay.crystalclear.core.model.itunes.ITunesTopAlbums
+import co.saltpay.crystalclear.core.network.ITunesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -39,5 +43,11 @@ object ApiModules {
 
     @Singleton
     @Provides
-    fun providesItunesService(retrofit: Retrofit): ITuneApiService = retrofit.create(ITuneApiService::class.java)
+    fun providesItunesApiService(retrofit: Retrofit): ITunesApiService = retrofit.create(ITunesApiService::class.java)
+
+    @Provides
+    fun providesItunesConverter(): Converter<ITunesTopAlbums, TopAlbums> {
+        return ITunesAlbumConverter()
+    }
+
 }

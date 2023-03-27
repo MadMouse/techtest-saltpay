@@ -3,7 +3,8 @@ package co.saltpay.crystalclear.network
 import co.saltpay.crystalclear.core.converter.ITunesAlbumConverter
 import co.saltpay.crystalclear.core.model.TopAlbums
 import co.saltpay.crystalclear.core.model.itunes.ITunesTopAlbums
-import co.saltpay.crystalclear.core.network.ITuneApiService
+import co.saltpay.crystalclear.core.network.ITunesApiService
+import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -21,7 +22,7 @@ import java.nio.charset.StandardCharsets
 
 
 class ITunesConverterTest {
-    private lateinit var itunesApiService: ITuneApiService
+    private lateinit var itunesApiService: ITunesApiService
     private lateinit var mockServer: MockWebServer
     private lateinit var converter: Converter<ITunesTopAlbums, TopAlbums>
 
@@ -44,11 +45,8 @@ class ITunesConverterTest {
     @Before
     fun setup() {
         mockServer = MockWebServer()
-        itunesApiService = Retrofit.Builder()
-            .baseUrl(mockServer.url(""))//We will use MockWebServers url
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ITuneApiService::class.java)
+        itunesApiService = Retrofit.Builder().baseUrl(mockServer.url(""))//We will use MockWebServers url
+            .addConverterFactory(GsonConverterFactory.create()).build().create(ITunesApiService::class.java)
 
         converter = ITunesAlbumConverter()
     }
@@ -69,6 +67,9 @@ class ITunesConverterTest {
 
             val convertedObject = converter.convert(result.body())
             assertEquals(2, convertedObject?.entries?.size)
+
+            val gson = Gson()
+            System.out.println(gson.toJson(result.body()))
 
             assertNotNull(convertedObject?.id)
             assertEquals("https://mzstoreservices-int-st.itunes.apple.com/us/rss/topalbums/limit=2/json", convertedObject?.id)
@@ -119,59 +120,48 @@ class ITunesConverterTest {
 
             assertNotNull(item1?.rights)
             assertEquals(
-                "℗ 2023 River House Artists LLC, under exclusive license to Sony Music Entertainment. All rights reserved.",
-                item1?.rights
+                "℗ 2023 River House Artists LLC, under exclusive license to Sony Music Entertainment. All rights reserved.", item1?.rights
             )
 
             assertNotNull(item1?.albumLink)
             assertEquals(
-                "alternate",
-                item1?.albumLink?.title
+                "alternate", item1?.albumLink?.title
             )
 
             assertEquals(
-                "https://music.apple.com/us/album/gettin-old/1666738524?uo=2",
-                item1?.albumLink?.href
+                "https://music.apple.com/us/album/gettin-old/1666738524?uo=2", item1?.albumLink?.href
             )
 
             assertEquals(
-                "text/html",
-                item1?.albumLink?.type
+                "text/html", item1?.albumLink?.type
             )
 
             assertNotNull(item1?.artistLink)
             assertNull(item1?.artistLink?.type)
             assertEquals(
-                "Luke Combs",
-                item1?.artistLink?.title
+                "Luke Combs", item1?.artistLink?.title
             )
             assertEquals(
-                "https://music.apple.com/us/artist/luke-combs/815635315?uo\u003d2",
-                item1?.artistLink?.href
+                "https://music.apple.com/us/artist/luke-combs/815635315?uo\u003d2", item1?.artistLink?.href
             )
 
             assertNotNull(item1?.category)
             assertEquals(
-                6,
-                item1?.category?.id
+                6, item1?.category?.id
             )
             assertEquals(
-                "Country",
-                item1?.category?.label
+                "Country", item1?.category?.label
             )
             assertEquals(
-                "Country",
-                item1?.category?.term
+                "Country", item1?.category?.term
             )
             assertEquals(
-                "https://music.apple.com/us/genre/music-country/id6?uo\u003d2",
-                item1?.category?.scheme
+                "https://music.apple.com/us/genre/music-country/id6?uo\u003d2", item1?.category?.scheme
             )
 
             assertNotNull(item1?.releaseDate)
             assertEquals(
-                "March 24, 2023",
-                item1?.releaseDate
+                "March 24, 2023", item1?.releaseDate
             )
 
             item1 = convertedObject?.entries?.get(1)
@@ -207,60 +197,49 @@ class ITunesConverterTest {
 
             assertNotNull(item1?.rights)
             assertEquals(
-                "℗ 2023 Venusnote Ltd., under exclusive license to Columbia Records, a Division of Sony Music Entertainment",
-                item1?.rights
+                "℗ 2023 Venusnote Ltd., under exclusive license to Columbia Records, a Division of Sony Music Entertainment", item1?.rights
             )
 
             assertNotNull(item1?.albumLink)
             assertEquals(
-                "alternate",
-                item1?.albumLink?.title
+                "alternate", item1?.albumLink?.title
             )
 
             assertEquals(
-                "https://music.apple.com/us/album/memento-mori/1670265523?uo=2",
-                item1?.albumLink?.href
+                "https://music.apple.com/us/album/memento-mori/1670265523?uo=2", item1?.albumLink?.href
             )
 
             assertEquals(
-                "text/html",
-                item1?.albumLink?.type
+                "text/html", item1?.albumLink?.type
             )
 
 
             assertNotNull(item1?.artistLink)
             assertNull(item1?.artistLink?.type)
             assertEquals(
-                "Depeche Mode",
-                item1?.artistLink?.title
+                "Depeche Mode", item1?.artistLink?.title
             )
             assertEquals(
-                "https://music.apple.com/us/artist/depeche-mode/148377?uo=2",
-                item1?.artistLink?.href
+                "https://music.apple.com/us/artist/depeche-mode/148377?uo=2", item1?.artistLink?.href
             )
 
             assertNotNull(item1?.category)
             assertEquals(
-                20,
-                item1?.category?.id
+                20, item1?.category?.id
             )
             assertEquals(
-                "Alternative",
-                item1?.category?.label
+                "Alternative", item1?.category?.label
             )
             assertEquals(
-                "Alternative",
-                item1?.category?.term
+                "Alternative", item1?.category?.term
             )
             assertEquals(
-                "https://music.apple.com/us/genre/music-alternative/id20?uo=2",
-                item1?.category?.scheme
+                "https://music.apple.com/us/genre/music-alternative/id20?uo=2", item1?.category?.scheme
             )
 
             assertNotNull(item1?.releaseDate)
             assertEquals(
-                "March 24, 2023",
-                item1?.releaseDate
+                "March 24, 2023", item1?.releaseDate
             )
         }
     }

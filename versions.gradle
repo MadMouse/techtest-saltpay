@@ -1,5 +1,5 @@
 def build_versions = [:]
-build_versions.minSdk = 24
+build_versions.minSdk = 26
 build_versions.targetSdk = 33
 build_versions.compileSdk = 33
 ext.build_versions = build_versions

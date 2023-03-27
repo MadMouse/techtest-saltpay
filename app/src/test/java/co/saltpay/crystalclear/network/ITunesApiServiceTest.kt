@@ -1,7 +1,7 @@
 package co.saltpay.crystalclear.network
 
 import co.saltpay.crystalclear.core.di.ApiModules
-import co.saltpay.crystalclear.core.network.ITuneApiService
+import co.saltpay.crystalclear.core.network.ITunesApiService
 import com.google.gson.JsonSyntaxException
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets
 
 
 class ITunesApiServiceTest {
-    private lateinit var itunesApiService: ITuneApiService
+    private lateinit var itunesApiService: ITunesApiService
     private lateinit var mockServer: MockWebServer
 
 
@@ -46,7 +46,7 @@ class ITunesApiServiceTest {
         val httpLoggingInterceptor: HttpLoggingInterceptor = ApiModules.providesHttpLoggingInterceptor()
         val okHttpClient: OkHttpClient = ApiModules.providesOkHttpClient(httpLoggingInterceptor)
         itunesApiService = Retrofit.Builder().baseUrl(mockServer.url(""))//We will use MockWebServers url
-            .client(okHttpClient).addConverterFactory(GsonConverterFactory.create()).build().create(ITuneApiService::class.java)
+            .client(okHttpClient).addConverterFactory(GsonConverterFactory.create()).build().create(ITunesApiService::class.java)
     }
 
     @After

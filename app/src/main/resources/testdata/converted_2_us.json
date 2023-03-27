@@ -1,0 +1,84 @@
+{
+    "author": {
+        "name": "iTunes Store",
+        "href": "http://www.apple.com/itunes/"
+    },
+    "updated": "2023-03-26T07:28:04-07:00",
+    "rights": "Copyright 2008 Apple Inc.",
+    "icon": "http://itunes.apple.com/favicon.ico",
+    "id": "https://mzstoreservices-int-st.itunes.apple.com/us/rss/topalbums/limit\u003d2/json",
+    "entries": [
+        {
+            "name": "Gettin\u0027 Old",
+            "title": "Gettin\u0027 Old - Luke Combs",
+            "image": {
+                "href": "https://is2-ssl.mzstatic.com/image/thumb/Music113/v4/7d/24/14/7d241439-671a-d957-9613-2f738f43a064/196589485991.jpg/170x170bb.png",
+                "size": 170
+            },
+            "itemCount": 18,
+            "price": {
+                "displayText": "$13.99",
+                "amount": 13.99,
+                "currency": "USD"
+            },
+            "contentType": [
+                "Album",
+                "Music",
+                "Country"
+            ],
+            "rights": "℗ 2023 River House Artists LLC, under exclusive license to Sony Music Entertainment. All rights reserved.",
+            "albumLink": {
+                "title": "alternate",
+                "href": "https://music.apple.com/us/album/gettin-old/1666738524?uo\u003d2",
+                "type": "text/html"
+            },
+            "artistLink": {
+                "title": "Luke Combs",
+                "href": "https://music.apple.com/us/artist/luke-combs/815635315?uo\u003d2"
+            },
+            "category": {
+                "id": 6,
+                "label": "Country",
+                "term": "Country",
+                "scheme": "https://music.apple.com/us/genre/music-country/id6?uo\u003d2"
+            },
+            "releaseDate": "March 24, 2023"
+        },
+        {
+            "name": "Memento Mori",
+            "title": "Memento Mori - Depeche Mode",
+            "image": {
+                "href": "https://is2-ssl.mzstatic.com/image/thumb/Music126/v4/b9/e3/01/b9e3017a-e072-d408-c017-488a2a8609e7/196589699763.jpg/170x170bb.png",
+                "size": 170
+            },
+            "itemCount": 12,
+            "price": {
+                "displayText": "$10.99",
+                "amount": 10.99,
+                "currency": "USD"
+            },
+            "contentType": [
+                "Album",
+                "Music",
+                "Alternative"
+            ],
+            "rights": "℗ 2023 Venusnote Ltd., under exclusive license to Columbia Records, a Division of Sony Music Entertainment",
+            "albumLink": {
+                "title": "alternate",
+                "href": "https://music.apple.com/us/album/memento-mori/1670265523?uo\u003d2",
+                "type": "text/html"
+            },
+            "artistLink": {
+                "title": "Depeche Mode",
+                "href": "https://music.apple.com/us/artist/depeche-mode/148377?uo\u003d2"
+            },
+            "category": {
+                "id": 20,
+                "label": "Alternative",
+                "term": "Alternative",
+                "scheme": "https://music.apple.com/us/genre/music-alternative/id20?uo\u003d2"
+            },
+            "releaseDate": "March 24, 2023"
+        }
+    ]
+}
