@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 /**
  * Implementation of the ITunes RSS Feeds as the Single source of truth.
- *
  */
 class MediaRepositoryImpl @Inject constructor(
     private val itunesApiService: ITunesApiService,

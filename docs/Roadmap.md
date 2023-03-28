@@ -1,7 +1,9 @@
-### Product Roadmap
+# Product Roadmap
 
 ---
+
 ## NOTE:
+
 This application is purely designed and build for evaluation purposes and must not be distributed or used for any other purpose.
 
 ## In lue of licencing verification
@@ -12,8 +14,8 @@ This application is purely designed and build for evaluation purposes and must n
 
 - Some media might contain additional licencing and should not be used for any other purposes than this evaluation.
 
-
 ## Assumptions
+
 - Feed supplied in the readme will be the single source of truth, any additional 3rd party data should be treated as unverified data.
 
 - Upon verification of the data returned via the feed, if any fields contain invalid data will be excluded from this evalution as a whole.
@@ -24,19 +26,27 @@ This application is purely designed and build for evaluation purposes and must n
 
 - All searches will only be done on data retreived in the current instance.
 
-
 ## Knowledge gaps.
-- This is by far the weakest area of my skill set, 
-UI Testing was in it's infancy on my previous commercial project (celenium, Gerkin and intergration with Jira.)
 
-- Expressio knowledge is rudimentry 
+- This is by far the weakest area of my skill set,
+  UI Testing was in it's infancy on my previous commercial project (celenium, Gerkin and intergration with Jira.)
+
+- Expressio knowledge is rudimentry
 
 ---
+
 # RoadMap
+
+## RoadMap
+
+![Roadmap](images/RoadMap-v1.jpg)
+
 ## MVP-Drop 1 (Supplied for evaluation)
-![Roadmap Drop 1](images/RoadMap-v1.jpg)
+
+![Roadmap Drop 1](images/MVP-V1.jpg)
 
 ### Landing Screen.
+
 1. WHEN Internet is not available THEN Show error dialog with message "Internet required for this app" and then exit.
 
 2. WHEN search terms are entered in search block AND search is selected THEN launch search screen with search criteria.
@@ -48,24 +58,27 @@ UI Testing was in it's infancy on my previous commercial project (celenium, Gerk
 5. GIVEN data is retrieved WHEN there are no items meeting the filter criteria for a given carousel THEN hide the carousel.
 
 ---
+
 | Carousel | Filter per item |
 | ----------- | ----------- |
 | Favourites | There are favourites stored locally and they are in data retrieved |
 | "By Name" | There album names in data retrieved |
 | "By Artist" | There artist names in data retrieved |
 | "By Release Date" | There is a released date in data retrieved |
+
 ---
 
-
-6. GIVEN that the author and copyright details are available THEN the last item in the carousel needs to hold icon, name and copyright using "Item About".
+6. GIVEN that the author and copyright details are available THEN the last item in the carousel needs to hold icon, name and copyright
+   using "Item About".
 
 7. WHEN the sort icon per carousel is selected THEN the data will toggle state from ascend -> decending or decending -> ascending
 
 8. WHEN item is selected in carousel THEN launch "Details screen" with selected items data.
 
-
 ### Search result screen.
-1. GIVEN search data WHEN there are not matches across all fields THEN show error dialog with message "No Items Found" THEN return to landing page.
+
+1. GIVEN search data WHEN there are not matches across all fields THEN show error dialog with message "No Items Found" THEN return to
+   landing page.
 
 2. GIVEN search data WHEN there are items that matches the search criteria THEN the items are listed vertically using the "Item Detail".
 
@@ -76,6 +89,7 @@ UI Testing was in it's infancy on my previous commercial project (celenium, Gerk
 5. WHEN back arrow is pressed OR back is pressed THEN return to landing page.
 
 ### Details screen.
+
 1. WHEN favourites star is pressed AND toggled to true THEN The hashed feed id will be written to shared preferences.
 
 2. WHEN favourites star is pressed AND toggled to false THEN The hashed feed id wil be deleted from shared preferences.
@@ -91,15 +105,18 @@ UI Testing was in it's infancy on my previous commercial project (celenium, Gerk
 7. GIVEN copyright data exists THEN show copyright at the bottom of the screen.
 
 ### MVP-Drop 2 (TBD)
+
 - GIVEN there are search results THEN words matching search critera to be highlighted.
 - WHEN favourites icon is pressed THEN Store hashed feed id to Room data store.
-
 - Favourite from any screen.
 - Country selector
-- Youtube - video search and  launch based on artist or album
-
+- Youtube - video search and launch based on artist or album
 
 ### MVP-Drop 3 (TBD)
+
+- Gameification of Albums (title anagram, Guess the year, Artist to album, Album to artis)
+-
+- 
 
 
 

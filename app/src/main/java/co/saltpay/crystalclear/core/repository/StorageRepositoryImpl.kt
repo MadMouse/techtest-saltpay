@@ -4,6 +4,9 @@ import android.content.SharedPreferences
 import co.saltpay.crystalclear.core.model.Entry
 import javax.inject.Inject
 
+/**
+ * Store favourites using shared preferences.
+ */
 class StorageRepositoryImpl @Inject constructor(private val sharedPreferences: SharedPreferences) : StorageRepository {
 
     private val FAVOURITE_ARRAY: String = "favouriteArray"

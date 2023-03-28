@@ -5,6 +5,9 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+/**
+ * Itunes API services.
+ */
 interface ITunesApiService {
     @GET("{countryCode}/rss/topalbums/limit={limit}/json")
     suspend fun getTopPlayedAlbumsForCountry(

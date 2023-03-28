@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import co.saltpay.crystalclear.core.model.Entry
 import co.saltpay.crystalclear.core.model.TopAlbums
 import co.saltpay.crystalclear.core.repository.MediaRepository
+import co.saltpay.crystalclear.core.repository.StorageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRepository) : ViewModel() {
+class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRepository, private val storageRepository: StorageRepository) :
+    ViewModel() {
 
 
     val topAlbumsLiveData: MutableLiveData<TopAlbums> by lazy {
@@ -72,6 +74,18 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
             _artistList.value =
                 topAlbumsLiveData.value?.entries?.distinctBy { it.artistLink.title }?.sortedByDescending { it.artistLink.title }!!
         }
+    }
+
+    fun isFavourites(entry: Entry): Boolean {
+        return storageRepository.isFavouriteEntry(entry)
+    }
+
+    fun tagAsFavourite(entry: Entry): Boolean {
+        return storageRepository.updateFavouriteState(entry, true)
+    }
+
+    fun untagAsFavourite(entry: Entry): Boolean {
+        return storageRepository.updateFavouriteState(entry, false)
     }
 
 }
