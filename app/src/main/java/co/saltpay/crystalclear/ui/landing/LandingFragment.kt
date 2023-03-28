@@ -17,6 +17,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -64,41 +67,37 @@ class LandingFragment : Fragment() {
     fun LandingPageApp() {
         val topAlbums = viewModel.topAlbumsLiveData.observeAsState()
         Surface() {
-            Column() {
+            Column(
+                modifier = Modifier.paint(painterResource(id = R.drawable.bg3), contentScale = ContentScale.Crop)
+            ) {
                 topAlbums.value?.let {
-//                    AboutCover(context, it.author, it.icon, it.rights)
-//                    AboutCover(context, it.author, it.icon, it.rights)
-                    loadArtistCarousel(
-                        stringResource(id = R.string.carousel_artist_title),
+                    LoadArtistCarousel(stringResource(id = R.string.carousel_artist_title),
                         it.entries!!.distinctBy { it.artistLink.title }.sortedBy { it.artistLink.title })
 
-                    loadAlbumsCarousel(
-                        stringResource(id = R.string.carousel_album_title),
-                        it.entries!!
+                    LoadAlbumsCarousel(
+                        stringResource(id = R.string.carousel_album_title), it.entries!!
                     )
 
-                    loadAlbumsReleaseCarousel(
-                        stringResource(id = R.string.carousel_release_title),
-                        it.entries!!.sortedByDescending {
-                            val format = SimpleDateFormat("MMM dd, yyyy")
-                            format.parse(it.releaseDate).time
-                        })
+                    LoadAlbumsReleaseCarousel(stringResource(id = R.string.carousel_release_title), it.entries!!.sortedByDescending {
+                        val format = SimpleDateFormat("MMM dd, yyyy")
+                        format.parse(it.releaseDate).time
+                    })
 
+                    AboutCover(context, it.author, it.rights)
                 }
             }
         }
     }
 
     @Composable
-    fun loadAlbumsCarousel(title: String, entries: List<Entry>) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-        ) {
+    fun LoadAlbumsCarousel(title: String, entries: List<Entry>) {
+        Column() {
             Row() {
                 Text(
-                    text = "$title (${entries.size})", modifier = Modifier.weight(1F)
+                    text = "$title (${entries.size})",
+                    modifier = Modifier.weight(1F),
+                    color = Color.White,
+                    style = MaterialTheme.typography.h6
                 )
                 Image(
                     painterResource(id = R.drawable.baseline_sort_by_alpha_24),
@@ -116,7 +115,7 @@ class LandingFragment : Fragment() {
     }
 
     @Composable
-    fun loadAlbumsReleaseCarousel(title: String, entries: List<Entry>) {
+    fun LoadAlbumsReleaseCarousel(title: String, entries: List<Entry>) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -124,7 +123,11 @@ class LandingFragment : Fragment() {
         ) {
             Row() {
                 Text(
-                    text = "$title (${entries.size})", modifier = Modifier.weight(1F)
+                    text = "$title (${entries.size})",
+                    modifier = Modifier.weight(1F),
+                    color = Color.White,
+                    style = MaterialTheme.typography.h6
+
                 )
                 Image(
                     painterResource(id = R.drawable.baseline_sort_by_alpha_24),
@@ -144,7 +147,7 @@ class LandingFragment : Fragment() {
     }
 
     @Composable
-    fun loadArtistCarousel(title: String, entries: List<Entry>) {
+    fun LoadArtistCarousel(title: String, entries: List<Entry>) {
 
         Column(
             modifier = Modifier
@@ -153,7 +156,10 @@ class LandingFragment : Fragment() {
         ) {
             Row() {
                 Text(
-                    text = "$title (${entries.size})", modifier = Modifier.weight(1F)
+                    text = "$title (${entries.size})",
+                    modifier = Modifier.weight(1F),
+                    color = Color.White,
+                    style = MaterialTheme.typography.h6
                 )
                 Image(
                     painterResource(id = R.drawable.baseline_sort_by_alpha_24),
