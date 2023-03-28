@@ -57,6 +57,16 @@ class ITunesConverterTest {
     }
 
     @Test
+    fun `GIVEN The Artist does not have attributes THEN All records should be parsed`() {
+        mockServer.enqueueResponse("testdata/itunes_100_bulk_response.json", 200)
+        runBlocking {
+            val result = itunesApiService.getTopPlayedAlbumsForCountry(100)
+            val convertedObject = converter.convert(result.body()!!)
+            assertEquals(68, convertedObject?.entries?.size)
+        }
+    }
+
+    @Test
     fun `GIVEN valid data is supplied with 2 complete WHEN converted to internal models 2 and all fields are verified THEN Success`() {
         mockServer.enqueueResponse("testdata/itunes_us_2_valid_response.json", 200)
         runBlocking {
@@ -67,9 +77,6 @@ class ITunesConverterTest {
 
             val convertedObject = converter.convert(result.body()!!)
             assertEquals(2, convertedObject?.entries?.size)
-
-            val gson = Gson()
-            System.out.println(gson.toJson(result.body()))
 
             assertNotNull(convertedObject?.id)
             assertEquals("https://mzstoreservices-int-st.itunes.apple.com/us/rss/topalbums/limit=2/json", convertedObject?.id)

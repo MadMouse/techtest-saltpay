@@ -1,7 +1,8 @@
 package co.saltpay.crystalclear
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import co.saltpay.crystalclear.ui.landing.LandingFragment
 import co.saltpay.crystalclear.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, LandingFragment.newInstance())
                 .commitNow()
         }
     }

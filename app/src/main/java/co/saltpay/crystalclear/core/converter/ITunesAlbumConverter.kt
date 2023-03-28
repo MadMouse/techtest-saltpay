@@ -1,6 +1,7 @@
 package co.saltpay.crystalclear.core.converter
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import co.saltpay.crystalclear.core.model.Author
 import co.saltpay.crystalclear.core.model.Category
@@ -62,7 +63,10 @@ class ITunesAlbumConverter : Converter<ITunesTopAlbums, TopAlbums> {
                 buildContentTypes(it),
                 it.rights.label,
                 Link(it.link.attributes.rel, it.link.attributes.href, it.link.attributes.type),
-                Link(it.artist.name, it.artist.attributes.href, null),
+                Link(
+                    it.artist.name,
+                    it.artist.attributes?.let { it.href }, null
+                ),
                 Category(
                     it.category.attributes.id.toInt(),
                     it.category.attributes.label,
@@ -74,7 +78,6 @@ class ITunesAlbumConverter : Converter<ITunesTopAlbums, TopAlbums> {
         }.toList()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun convert(value: ITunesTopAlbums): TopAlbums? {
         val author = value.feed.author?.name?.let { value.feed.author?.uri?.label?.let { it1 -> Author(it.label, it1) } }
         val entryList = value.feed.entry.let { parseEntitys(it) }

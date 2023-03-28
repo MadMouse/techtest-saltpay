@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Crystal_Clear</string>
+    <string name="app_name">Crystal Clear</string>
+    <string name="carousel_sort">Sort</string>
+    <string name="carousel_artist_title">Artists</string>
+    <string name="carousel_album_title">Albums</string>
+    <string name="carousel_release_title">Release Date</string>
 </resources>

@@ -56,6 +56,7 @@ dependencies {
 
     //Hilt Dependencies
     implementation "com.google.dagger:hilt-android:$lib_versions.hilt"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:hilt-compiler:$lib_versions.hilt"
 
     testAnnotationProcessor "com.google.dagger:hilt-android-compiler:$test_versions.hilt"
@@ -71,12 +72,21 @@ dependencies {
     implementation "androidx.activity:activity-compose:$lib_versions.activityCompose"
 
     implementation "androidx.compose.runtime:runtime-livedata:$lib_versions.composeVersion"
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lib_versions.lifecycle_livedata_ktx")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lib_versions.lifecycle_viewmodel_ktx")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:$lib_versions.navigation_fragment_ktx")
+    implementation("androidx.navigation:navigation-ui-ktx:$lib_versions.navigation_ui_ktx")
+
+    implementation "androidx.compose.runtime:runtime-livedata:$lib_versions.composeVersion"
     implementation "androidx.compose.ui:ui:$lib_versions.composeVersion"
     implementation "androidx.compose.ui:ui-util:$lib_versions.composeVersion"
     implementation "androidx.compose.ui:ui-tooling:$lib_versions.composeVersion"
     implementation "androidx.compose.ui:ui-tooling-preview:$lib_versions.composeVersion"
     implementation "androidx.compose.material:material:$lib_versions.composeMaterialVersion"
     implementation "androidx.compose.material:material-icons-extended:$lib_versions.composeMaterialVersion"
+    implementation "androidx.constraintlayout:constraintlayout-compose:$lib_versions.constaintLayout"
+    implementation "io.coil-kt:coil-compose:$lib_versions.coil"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$lib_versions.retrofit2"
