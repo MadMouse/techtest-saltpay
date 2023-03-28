@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -48,6 +50,11 @@ class LandingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.topAlbumsLiveData?.observe(viewLifecycleOwner) {
+            viewModel.toggleAlbumSort()
+            viewModel.toggleReleaseDateSort()
+            viewModel.toggleArtistSort()
+        }
         viewModel.loadTopAlbums()
     }
 
@@ -71,17 +78,20 @@ class LandingFragment : Fragment() {
                 modifier = Modifier.paint(painterResource(id = R.drawable.bg3), contentScale = ContentScale.Crop)
             ) {
                 topAlbums.value?.let {
-                    LoadArtistCarousel(stringResource(id = R.string.carousel_artist_title),
-                        it.entries!!.distinctBy { it.artistLink.title }.sortedBy { it.artistLink.title })
-
                     LoadAlbumsCarousel(
-                        stringResource(id = R.string.carousel_album_title), it.entries!!
+                        stringResource(id = R.string.carousel_album_title), topAlbums.value!!.entries!!, false
                     )
 
-                    LoadAlbumsReleaseCarousel(stringResource(id = R.string.carousel_release_title), it.entries!!.sortedByDescending {
-                        val format = SimpleDateFormat("MMM dd, yyyy")
-                        format.parse(it.releaseDate).time
-                    })
+                    val artistflow = viewModel.artistDateList.collectAsState()
+                    LoadArtistCarousel(stringResource(id = R.string.carousel_artist_title), artistflow.value as List<Entry>)
+
+                    val albumsNameflow = viewModel.albumNameList.collectAsState()
+                    LoadAlbumsCarousel(
+                        stringResource(id = R.string.carousel_album_title_sorted), albumsNameflow.value as List<Entry>,
+                    )
+
+                    val releaseDateflow = viewModel.releaseDateList.collectAsState()
+                    LoadAlbumsReleaseCarousel(stringResource(id = R.string.carousel_release_title), releaseDateflow.value as List<Entry>)
 
                     AboutCover(context, it.author, it.rights)
                 }
@@ -90,7 +100,7 @@ class LandingFragment : Fragment() {
     }
 
     @Composable
-    fun LoadAlbumsCarousel(title: String, entries: List<Entry>) {
+    fun LoadAlbumsCarousel(title: String, entries: List<Entry>, enableSort: Boolean = true) {
         Column() {
             Row() {
                 Text(
@@ -99,10 +109,13 @@ class LandingFragment : Fragment() {
                     color = Color.White,
                     style = MaterialTheme.typography.h6
                 )
-                Image(
-                    painterResource(id = R.drawable.baseline_sort_by_alpha_24),
-                    contentDescription = stringResource(id = R.string.carousel_sort)
-                )
+                if (enableSort) {
+                    Image(painterResource(id = R.drawable.baseline_sort_by_alpha_24),
+                        contentDescription = stringResource(id = R.string.carousel_sort),
+                        modifier = Modifier.clickable {
+                            viewModel.toggleAlbumSort()
+                        })
+                }
             }
             LazyRow(
                 modifier = Modifier.fillMaxWidth()
@@ -129,18 +142,20 @@ class LandingFragment : Fragment() {
                     style = MaterialTheme.typography.h6
 
                 )
-                Image(
-                    painterResource(id = R.drawable.baseline_sort_by_alpha_24),
-                    contentDescription = stringResource(id = R.string.carousel_sort)
-                )
+                Image(painterResource(id = R.drawable.baseline_sort_by_alpha_24),
+                    contentDescription = stringResource(id = R.string.carousel_sort),
+                    modifier = Modifier.clickable {
+                        viewModel.toggleReleaseDateSort()
+                    })
             }
             LazyRow(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(entries) {
                     val formatDate = SimpleDateFormat("MMM dd, yyyy").parse(it.releaseDate)
-                    val outDate = SimpleDateFormat("MMM dd, yyyy").format(formatDate)
-                    AlbumCover(entry = it, outDate, true)
+                    formatDate?.let { it1 ->
+                        AlbumCover(entry = it, SimpleDateFormat("MMM dd, yyyy").format(it1), true)
+                    }
                 }
             }
         }
@@ -161,10 +176,11 @@ class LandingFragment : Fragment() {
                     color = Color.White,
                     style = MaterialTheme.typography.h6
                 )
-                Image(
-                    painterResource(id = R.drawable.baseline_sort_by_alpha_24),
-                    contentDescription = stringResource(id = R.string.carousel_sort)
-                )
+                Image(painterResource(id = R.drawable.baseline_sort_by_alpha_24),
+                    contentDescription = stringResource(id = R.string.carousel_sort),
+                    modifier = Modifier.clickable {
+                        viewModel.toggleArtistSort()
+                    })
 
             }
 

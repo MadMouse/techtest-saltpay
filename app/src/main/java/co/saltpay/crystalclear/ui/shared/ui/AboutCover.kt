@@ -12,9 +12,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import co.saltpay.crystalclear.R
 import co.saltpay.crystalclear.core.model.Author
 
 @Composable
@@ -31,7 +33,7 @@ fun AboutCover(context: Context?, author: Author?, rights: String?) {
         Column(modifier = Modifier.padding(5.dp)) {
             author?.let {
                 Text(
-                    text = it.name, style = MaterialTheme.typography.body1,
+                    text = stringResource(R.string.data_source) + " : " + it.name, style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()
                 )
             }
