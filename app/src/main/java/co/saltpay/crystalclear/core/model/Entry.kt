@@ -35,5 +35,6 @@ data class Entry(
     val albumLink: Link,
     val artistLink: Link,
     val category: Category,
-    val releaseDate: String
+    val releaseDate: String,
+    val searchString: String
 )

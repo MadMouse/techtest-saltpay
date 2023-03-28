@@ -96,6 +96,10 @@ class ITunesConverterTest {
 
             var item1 = convertedObject?.entries?.get(0)
 
+            assertEquals(
+                "gettin' old|gettin' old - luke combs|[album, music, country]|luke combs|country|country|march 24, 2023|\$13.99|luke combs",
+                item1?.searchString
+            )
             assertNotNull(item1?.name)
             assertEquals("Gettin' Old", item1?.name)
             assertEquals("Gettin\u0027 Old", item1?.name)
@@ -173,6 +177,10 @@ class ITunesConverterTest {
 
             item1 = convertedObject?.entries?.get(1)
 
+            assertEquals(
+                "memento mori|memento mori - depeche mode|[album, music, alternative]|depeche mode|alternative|alternative|march 24, 2023|\$10.99|depeche mode",
+                item1?.searchString
+            )
             assertNotNull(item1?.name)
             assertEquals("Memento Mori", item1?.name)
 

@@ -3,6 +3,7 @@ package co.saltpay.crystalclear.core.converter
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.text.toLowerCase
 import co.saltpay.crystalclear.core.model.Author
 import co.saltpay.crystalclear.core.model.Category
 import co.saltpay.crystalclear.core.model.Entry
@@ -54,6 +55,16 @@ class ITunesAlbumConverter : Converter<ITunesTopAlbums, TopAlbums> {
 
     private fun parseEntitys(items: List<ITunesEntry>): List<Entry> {
         return items.map {
+            val searchString = it.name.label + "|" +
+                    it.title.label + "|" +
+                    buildContentTypes(it).toString() + "|" +
+                    it.artist.name + "|" +
+                    it.category.attributes.label + "|" +
+                    it.category.attributes.term + "|" +
+                    it.releaseDate.attributes.label + "|" +
+                    it.price.label + "|" +
+                    it.artist.name
+
             Entry(
                 it.name.label,
                 it.title.label,
@@ -64,8 +75,7 @@ class ITunesAlbumConverter : Converter<ITunesTopAlbums, TopAlbums> {
                 it.rights.label,
                 Link(it.link.attributes.rel, it.link.attributes.href, it.link.attributes.type),
                 Link(
-                    it.artist.name,
-                    it.artist.attributes?.let { it.href }, null
+                    it.artist.name, it.artist.attributes?.let { it.href }, null
                 ),
                 Category(
                     it.category.attributes.id.toInt(),
@@ -73,7 +83,8 @@ class ITunesAlbumConverter : Converter<ITunesTopAlbums, TopAlbums> {
                     it.category.attributes.term,
                     it.category.attributes.scheme
                 ),
-                it.releaseDate.attributes.label
+                it.releaseDate.attributes.label,
+                searchString.lowercase()
             )
         }.toList()
     }
@@ -83,12 +94,7 @@ class ITunesAlbumConverter : Converter<ITunesTopAlbums, TopAlbums> {
         val entryList = value.feed.entry.let { parseEntitys(it) }
         return value.feed.id?.label?.let {
             TopAlbums(
-                author,
-                value.feed.updated.label,
-                value.feed.rights.label,
-                value.feed.icon.label,
-                it,
-                entryList
+                author, value.feed.updated.label, value.feed.rights.label, value.feed.icon.label, it, entryList
             )
         }
     }
