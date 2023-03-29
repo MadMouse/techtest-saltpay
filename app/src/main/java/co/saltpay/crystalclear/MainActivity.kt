@@ -3,7 +3,6 @@ package co.saltpay.crystalclear
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import co.saltpay.crystalclear.ui.landing.LandingFragment
-import co.saltpay.crystalclear.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
