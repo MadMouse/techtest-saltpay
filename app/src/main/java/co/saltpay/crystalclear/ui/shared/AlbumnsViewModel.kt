@@ -88,7 +88,6 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
     }
 
     fun updateAllCarousels(entryList: List<Entry>, isSearch: Boolean = false) {
-        System.out.println("-------> Updating AllCarousels " + isSearch)
         _artistList.value = entryList
         _albumNameList.value = entryList
         _releaseDateList.value = entryList
@@ -110,9 +109,9 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
             if (terms.isNotEmpty()) {
                 val termList = terms.split(" ")
                 val searchResult = topAlbumsLiveData.value?.entries!!.filter { entry ->
-                    termList.filter { term -> entry.searchString.contains(term) }.isNotEmpty()
+
+                    termList.filter { term -> term.isNotBlank() && entry.searchString.contains(term) }.isNotEmpty()
                 }.toList()
-                System.out.println("-------> Updating AllCarousels -- " + terms + " -- " + searchResult.size)
                 updateAllCarousels(searchResult, true)
                 return searchResult
 
