@@ -1,9 +1,5 @@
 package co.saltpay.crystalclear.core.converter
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.compose.ui.text.toLowerCase
 import co.saltpay.crystalclear.core.model.Author
 import co.saltpay.crystalclear.core.model.Category
 import co.saltpay.crystalclear.core.model.Entry
@@ -15,7 +11,6 @@ import co.saltpay.crystalclear.core.model.itunes.ITunesEntry
 import co.saltpay.crystalclear.core.model.itunes.ITunesImage
 import co.saltpay.crystalclear.core.model.itunes.ITunesTopAlbums
 import retrofit2.Converter
-import java.util.*
 
 /**
  * Converter for ITunesTopAlbums to TopAlbums items

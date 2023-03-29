@@ -42,7 +42,8 @@
                 "term": "Country",
                 "scheme": "https://music.apple.com/us/genre/music-country/id6?uo\u003d2"
             },
-            "releaseDate": "March 24, 2023"
+            "releaseDate": "March 24, 2023",
+            "searchString": "gettin\u0027 old|gettin\u0027 old - luke combs|[album, music, country]|luke combs|country|country|march 24, 2023|$13.99|luke combs"
         },
         {
             "name": "Memento Mori",
@@ -78,7 +79,8 @@
                 "term": "Alternative",
                 "scheme": "https://music.apple.com/us/genre/music-alternative/id20?uo\u003d2"
             },
-            "releaseDate": "March 24, 2023"
+            "releaseDate": "March 24, 2023",
+            "searchString": "memento mori|memento mori - depeche mode|[album, music, alternative]|depeche mode|alternative|alternative|march 24, 2023|$10.99|depeche mode"
         }
     ]
 }

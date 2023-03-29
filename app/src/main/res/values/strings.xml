@@ -6,4 +6,5 @@
     <string name="carousel_album_title_sorted">By Name</string>
     <string name="carousel_release_title">By Release Date</string>
     <string name="data_source">Data Source</string>
+    <string name="search">Search</string>
 </resources>

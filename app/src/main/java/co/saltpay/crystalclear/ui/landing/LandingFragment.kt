@@ -18,6 +18,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
@@ -25,6 +27,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -35,6 +38,7 @@ import co.saltpay.crystalclear.ui.shared.AlbumnsViewModel
 import co.saltpay.crystalclear.ui.shared.ui.AboutCover
 import co.saltpay.crystalclear.ui.shared.ui.AlbumCover
 import co.saltpay.crystalclear.ui.shared.ui.ArtistCover
+import co.saltpay.crystalclear.ui.shared.ui.SearchComponent
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 
@@ -51,9 +55,7 @@ class LandingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.topAlbumsLiveData?.observe(viewLifecycleOwner) {
-            viewModel.toggleAlbumSort()
-            viewModel.toggleReleaseDateSort()
-            viewModel.toggleArtistSort()
+            it.entries?.let { it1 -> viewModel.updateAllCarousels(it1) }
         }
         viewModel.loadTopAlbums()
     }
@@ -73,11 +75,13 @@ class LandingFragment : Fragment() {
     @Composable
     fun LandingPageApp() {
         val topAlbums = viewModel.topAlbumsLiveData.observeAsState()
+        val searchState = remember { mutableStateOf(TextFieldValue("")) }
         Surface() {
             Column(
                 modifier = Modifier.paint(painterResource(id = R.drawable.bg3), contentScale = ContentScale.Crop)
             ) {
                 topAlbums.value?.let {
+                    SearchComponent(searchState, viewModel)
                     LoadAlbumsCarousel(
                         stringResource(id = R.string.carousel_album_title), topAlbums.value!!.entries!!, false
                     )

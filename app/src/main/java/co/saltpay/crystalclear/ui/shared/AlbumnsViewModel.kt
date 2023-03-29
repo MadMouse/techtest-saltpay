@@ -2,14 +2,12 @@ package co.saltpay.crystalclear.ui.shared
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import co.saltpay.crystalclear.core.model.Entry
 import co.saltpay.crystalclear.core.model.TopAlbums
 import co.saltpay.crystalclear.core.repository.MediaRepository
 import co.saltpay.crystalclear.core.repository.StorageRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -89,10 +87,22 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
         return storageRepository.updateFavouriteState(entry, false)
     }
 
-    fun updateAllCarousels(entryList: List<Entry>) {
+    fun updateAllCarousels(entryList: List<Entry>, isSearch: Boolean = false) {
+        System.out.println("-------> Updating AllCarousels " + isSearch)
         _artistList.value = entryList
         _albumNameList.value = entryList
         _releaseDateList.value = entryList
+
+        if (!isSearch) {
+            artistAsc = false
+            toggleArtistSort()
+
+            albumSortedA2Z = false
+            toggleAlbumSort()
+
+            artistAsc = false
+            toggleReleaseDateSort()
+        }
     }
 
     fun applySearchWords(terms: String): List<Entry> {
@@ -102,8 +112,8 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
                 val searchResult = topAlbumsLiveData.value?.entries!!.filter { entry ->
                     termList.filter { term -> entry.searchString.contains(term) }.isNotEmpty()
                 }.toList()
-
-                updateAllCarousels(searchResult)
+                System.out.println("-------> Updating AllCarousels -- " + terms + " -- " + searchResult.size)
+                updateAllCarousels(searchResult, true)
                 return searchResult
 
             } else {
