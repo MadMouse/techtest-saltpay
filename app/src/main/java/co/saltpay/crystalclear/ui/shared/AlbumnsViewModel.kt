@@ -2,6 +2,7 @@ package co.saltpay.crystalclear.ui.shared
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import co.saltpay.crystalclear.core.model.Entry
 import co.saltpay.crystalclear.core.model.TopAlbums
@@ -37,7 +38,7 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
     val artistDateList: StateFlow<List<Entry?>> = _artistList
 
     fun loadTopAlbums(limit: Int = 100, country: String = "us") {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             val topAlbums = mediaRepository.fetchTopPlayedAlbums(limit, country)
             topAlbumsLiveData.postValue(topAlbums)
         }
@@ -88,4 +89,28 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
         return storageRepository.updateFavouriteState(entry, false)
     }
 
+    fun updateAllCarousels(entryList: List<Entry>) {
+        _artistList.value = entryList
+        _albumNameList.value = entryList
+        _releaseDateList.value = entryList
+    }
+
+    fun applySearchWords(terms: String): List<Entry> {
+        topAlbumsLiveData.value?.let {
+            if (terms.isNotEmpty()) {
+                val termList = terms.split(" ")
+                val searchResult = topAlbumsLiveData.value?.entries!!.filter { entry ->
+                    termList.filter { term -> entry.searchString.contains(term) }.isNotEmpty()
+                }.toList()
+
+                updateAllCarousels(searchResult)
+                return searchResult
+
+            } else {
+                updateAllCarousels(it.entries as List<Entry>)
+                return it.entries
+            }
+        }
+        return ArrayList<Entry>()
+    }
 }

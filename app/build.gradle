@@ -57,6 +57,7 @@ dependencies {
     //Hilt Dependencies
     implementation "com.google.dagger:hilt-android:$lib_versions.hilt"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
     kapt "com.google.dagger:hilt-compiler:$lib_versions.hilt"
 
     testAnnotationProcessor "com.google.dagger:hilt-android-compiler:$test_versions.hilt"
@@ -104,6 +105,8 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$test_versions.coroutines"
     testImplementation "com.google.truth:truth:$test_versions.google_truth"
 
+    testImplementation "org.mockito:mockito-core:$test_versions.mockitoCore"
+    testImplementation "androidx.arch.core:core-testing:$test_versions.coreTesting"
     testImplementation "junit:junit:$test_versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$test_versions.testJUnit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$test_versions.espressoCore"

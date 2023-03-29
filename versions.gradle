@@ -42,4 +42,6 @@ test_versions.mockk = '1.13.4'
 test_versions.mockwebserver = '4.10.0'
 test_versions.coroutines = '1.6.4'
 test_versions.google_truth = '1.1.3'
+test_versions.coreTesting = '2.0.0-alpha1'
+test_versions.mockitoCore = '5.2.0'
 ext.test_versions = test_versions

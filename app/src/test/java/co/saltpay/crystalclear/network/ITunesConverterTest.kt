@@ -4,7 +4,6 @@ import co.saltpay.crystalclear.core.converter.ITunesAlbumConverter
 import co.saltpay.crystalclear.core.model.TopAlbums
 import co.saltpay.crystalclear.core.model.itunes.ITunesTopAlbums
 import co.saltpay.crystalclear.core.network.ITunesApiService
-import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -71,6 +70,7 @@ class ITunesConverterTest {
         mockServer.enqueueResponse("testdata/itunes_us_2_valid_response.json", 200)
         runBlocking {
             val result = itunesApiService.getTopPlayedAlbumsForCountry(5)
+
             assertNotNull(result.body())
             assertEquals(2, result.body()?.feed?.entry?.size)
             assertEquals(200, result.code())
