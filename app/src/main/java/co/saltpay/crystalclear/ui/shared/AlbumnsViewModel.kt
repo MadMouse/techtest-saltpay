@@ -19,6 +19,10 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
     ViewModel() {
 
 
+    val inProgress: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
     val topAlbumsLiveData: MutableLiveData<TopAlbums> by lazy {
         MutableLiveData<TopAlbums>()
     }
@@ -36,6 +40,7 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
     val artistDateList: StateFlow<List<Entry?>> = _artistList
 
     fun loadTopAlbums(limit: Int = 100, country: String = "us") {
+        inProgress.value = true
         viewModelScope.launch() {
             val topAlbums = mediaRepository.fetchTopPlayedAlbums(limit, country)
             topAlbumsLiveData.postValue(topAlbums)
@@ -88,6 +93,7 @@ class AlbumnsViewModel @Inject constructor(private val mediaRepository: MediaRep
     }
 
     fun updateAllCarousels(entryList: List<Entry>, isSearch: Boolean = false) {
+        inProgress.value = false
         _artistList.value = entryList
         _albumNameList.value = entryList
         _releaseDateList.value = entryList

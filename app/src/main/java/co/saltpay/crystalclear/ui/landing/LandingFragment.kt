@@ -10,8 +10,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -29,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import co.saltpay.crystalclear.R
@@ -83,11 +86,20 @@ class LandingFragment : Fragment() {
     fun LandingPageApp() {
         val topAlbums = viewModel.topAlbumsLiveData.observeAsState()
         val searchState = remember { mutableStateOf(TextFieldValue("")) }
-        val openDialog = remember { mutableStateOf(false) }
+        val inProgress = viewModel.inProgress.observeAsState()
         Surface() {
             Column(
                 modifier = Modifier.paint(painterResource(id = R.drawable.bg3), contentScale = ContentScale.Crop)
             ) {
+                if (inProgress.value == true) {
+                    LinearProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(15.dp),
+                        backgroundColor = Color.LightGray,
+                        color = Color.Red //progress color
+                    )
+                }
                 topAlbums.value?.let {
                     SearchComponent(searchState, viewModel)
                     LoadAlbumsCarousel(
