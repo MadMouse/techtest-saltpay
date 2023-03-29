@@ -10,7 +10,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -30,7 +29,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import co.saltpay.crystalclear.R
@@ -53,6 +51,13 @@ class LandingFragment : Fragment() {
     private val viewModel: AlbumnsViewModel by activityViewModels()
 
     private var currentEntry: Entry? = null
+
+    enum class CarouselType {
+        PLAYED,
+        ARTIST,
+        NAME,
+        RELEASE
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -86,19 +91,32 @@ class LandingFragment : Fragment() {
                 topAlbums.value?.let {
                     SearchComponent(searchState, viewModel)
                     LoadAlbumsCarousel(
-                        stringResource(id = R.string.carousel_album_title), topAlbums.value!!.entries!!, false
+                        stringResource(id = R.string.carousel_album_title), topAlbums.value!!.entries!!, false, CarouselType.PLAYED
                     )
 
                     val artistflow = viewModel.artistDateList.collectAsState()
-                    LoadArtistCarousel(stringResource(id = R.string.carousel_artist_title), artistflow.value as List<Entry>)
+                    LoadAlbumsCarousel(
+                        stringResource(id = R.string.carousel_artist_title),
+                        artistflow.value as List<Entry>,
+                        false,
+                        CarouselType.ARTIST
+                    )
 
                     val albumsNameflow = viewModel.albumNameList.collectAsState()
                     LoadAlbumsCarousel(
-                        stringResource(id = R.string.carousel_album_title_sorted), albumsNameflow.value as List<Entry>,
+                        stringResource(id = R.string.carousel_album_title_sorted),
+                        albumsNameflow.value as List<Entry>,
+                        false,
+                        CarouselType.NAME
                     )
 
                     val releaseDateflow = viewModel.releaseDateList.collectAsState()
-                    LoadAlbumsReleaseCarousel(stringResource(id = R.string.carousel_release_title), releaseDateflow.value as List<Entry>)
+                    LoadAlbumsCarousel(
+                        stringResource(id = R.string.carousel_release_title),
+                        releaseDateflow.value as List<Entry>,
+                        false,
+                        CarouselType.RELEASE
+                    )
 
                     AboutCover(context, it.author, it.rights)
                 }
@@ -107,8 +125,8 @@ class LandingFragment : Fragment() {
     }
 
     @Composable
-    fun LoadAlbumsCarousel(title: String, entries: List<Entry>, enableSort: Boolean = true) {
-        val openDialogAlbum = remember { mutableStateOf(false) }
+    fun LoadAlbumsCarousel(title: String, entries: List<Entry>, enableSort: Boolean = true, carouselType: CarouselType) {
+        val openDialog = remember { mutableStateOf(false) }
         Column() {
             Row() {
                 Text(
@@ -129,94 +147,32 @@ class LandingFragment : Fragment() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(entries) {
-                    AlbumCover(entry = it, caption = it.name, false) {
-                        currentEntry = it
-                        openDialogAlbum.value = true
-                    }
-                }
-            }
-            if (openDialogAlbum.value && currentEntry != null) {
-                AlbumDetailDialog(context, currentEntry, openDialogAlbum)
-            } else {
-                currentEntry = null
-            }
-        }
-    }
-
-    @Composable
-    fun LoadAlbumsReleaseCarousel(title: String, entries: List<Entry>) {
-        val openDialog = remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-        ) {
-            Row() {
-                Text(
-                    text = "$title (${entries.size})",
-                    modifier = Modifier.weight(1F),
-                    color = Color.White,
-                    style = MaterialTheme.typography.h6
-
-                )
-                Image(painterResource(id = R.drawable.baseline_sort_by_alpha_24),
-                    contentDescription = stringResource(id = R.string.carousel_sort),
-                    modifier = Modifier.clickable {
-                        viewModel.toggleReleaseDateSort()
-                    })
-            }
-            LazyRow(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                items(entries) {
-                    val formatDate = SimpleDateFormat("MMM dd, yyyy").parse(it.releaseDate)
-                    formatDate?.let { it1 ->
-                        AlbumCover(entry = it, SimpleDateFormat("MMM dd, yyyy").format(it1), true) {
-                            currentEntry = it
-                            openDialog.value = true
+                    when (carouselType) {
+                        CarouselType.RELEASE -> {
+                            val formatDate = SimpleDateFormat("MMM dd, yyyy").parse(it.releaseDate)
+                            formatDate?.let { it1 ->
+                                AlbumCover(entry = it, SimpleDateFormat("MMM dd, yyyy").format(it1), false) {
+                                    currentEntry = it
+                                    openDialog.value = true
+                                }
+                            }
+                        }
+                        CarouselType.ARTIST -> {
+                            ArtistCover(context = context, entry = it)
+                        }
+                        else -> {
+                            AlbumCover(entry = it, caption = it.name, false) {
+                                currentEntry = it
+                                openDialog.value = true
+                            }
                         }
                     }
                 }
             }
-
             if (openDialog.value && currentEntry != null) {
                 AlbumDetailDialog(context, currentEntry, openDialog)
             } else {
                 currentEntry = null
-            }
-
-        }
-    }
-
-    @Composable
-    fun LoadArtistCarousel(title: String, entries: List<Entry>) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-        ) {
-            Row() {
-                Text(
-                    text = "$title (${entries.size})",
-                    modifier = Modifier.weight(1F),
-                    color = Color.White,
-                    style = MaterialTheme.typography.h6
-                )
-                Image(painterResource(id = R.drawable.baseline_sort_by_alpha_24),
-                    contentDescription = stringResource(id = R.string.carousel_sort),
-                    modifier = Modifier.clickable {
-                        viewModel.toggleArtistSort()
-                    })
-
-            }
-
-            LazyRow(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                items(entries) {
-                    ArtistCover(context = context, entry = it)
-                }
             }
         }
     }

@@ -73,7 +73,7 @@ fun AlbumDetailDialog(context: Context?, entry: Entry?, openDialog: MutableState
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Button(modifier = Modifier.padding(5.dp), onClick = {
-                                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(entry.albumLink?.href))
+                                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(entry.albumLink.href))
 
                                     context?.let { ContextCompat.startActivity(it, browserIntent, null) }
                                 }) {
