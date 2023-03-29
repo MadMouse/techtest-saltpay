@@ -6,32 +6,32 @@
 
 This application is purely designed and build for evaluation purposes and must not be distributed or used for any other purpose.
 
-## In lue of licencing verification
+## In leu of licensing verification
 
 - Data will only be available while online.
 
 - NO data will be retained after the application is closed.
 
-- Some media might contain additional licencing and should not be used for any other purposes than this evaluation.
+- Some media might contain additional licensing and should not be used for any other purposes than this evaluation.
 
 ## Assumptions
 
 - Feed supplied in the readme will be the single source of truth, any additional 3rd party data should be treated as unverified data.
 
-- Upon verification of the data returned via the feed, if any fields contain invalid data will be excluded from this evalution as a whole.
+- Upon verification of the data returned via the feed, if any fields contain invalid data will be excluded from this evaluation as a whole.
 
 - Wireframes are only used to as a guide and final product might not match.
 
 - Data retrieved must not exceed 100 records.
 
-- All searches will only be done on data retreived in the current instance.
+- All searches will only be done on data retrieved in the current instance.
 
 ## Knowledge gaps.
 
 - This is by far the weakest area of my skill set,
-  UI Testing was in it's infancy on my previous commercial project (celenium, Gerkin and intergration with Jira.)
+  UI Testing was in it's infancy on my previous commercial project (selenium, Gherkin and integration with Jira.)
 
-- Expressio knowledge is rudimentry
+- Expresso knowledge is rudimentary
 
 ---
 
@@ -71,7 +71,7 @@ This application is purely designed and build for evaluation purposes and must n
 6. GIVEN that the author and copyright details are available THEN the last item in the carousel needs to hold icon, name and copyright
    using "Item About".
 
-7. WHEN the sort icon per carousel is selected THEN the data will toggle state from ascend -> decending or decending -> ascending
+7. WHEN the sort icon per carousel is selected THEN the data will toggle state from ascend -> descending or descending -> ascending
 
 8. WHEN item is selected in carousel THEN launch "Details screen" with selected items data.
 
@@ -100,13 +100,13 @@ This application is purely designed and build for evaluation purposes and must n
 
 5. WHEN Back arrow or back button is pressed THEN return to the originating screen.
 
-6. WHEN screen loads and metadata and favourite value exists THEN the favourtives star needs to be marked as a favourite.
+6. WHEN screen loads and metadata and favourite value exists THEN the favourites star needs to be marked as a favourite.
 
 7. GIVEN copyright data exists THEN show copyright at the bottom of the screen.
 
 ### MVP-Drop 2 (TBD)
 
-- GIVEN there are search results THEN words matching search critera to be highlighted.
+- GIVEN there are search results THEN words matching search criteria to be highlighted.
 - WHEN favourites icon is pressed THEN Store hashed feed id to Room data store.
 - Favourite from any screen.
 - Country selector
@@ -114,7 +114,7 @@ This application is purely designed and build for evaluation purposes and must n
 
 ### MVP-Drop 3 (TBD)
 
-- Gameification of Albums (title anagram, Guess the year, Artist to album, Album to artis)
+- Gamification of Albums (title anagram, Guess the year, Artist to album, Album to artist)
 -
 - 
 

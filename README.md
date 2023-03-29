@@ -4,6 +4,11 @@
 
 ### [Known Issues](docs/KnownIssues.md)
 
+## Approach
+The project will be treated as a hackathon project time boxed to 20 hours, This will be spread over 5 days with multiple milestones.
+
+The key milestone will be at the 15 hour mark, this will determine the final feature roadmap. The last 5 hours will used to tidy up the code and application for the final delivery.
+
 ## Caveats
 
 1. Release should be done via a CI/CD (never a local machine)
