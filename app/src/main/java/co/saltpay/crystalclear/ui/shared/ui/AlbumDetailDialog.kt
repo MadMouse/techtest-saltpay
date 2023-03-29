@@ -40,10 +40,9 @@ fun AlbumDetailDialog(context: Context?, entry: Entry?, openDialog: MutableState
                 if (entry != null) {
                     Card(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(2.dp), elevation = 5.dp
+                            .fillMaxWidth(), elevation = 5.dp
                     ) {
-                        Column() {
+                        Column(modifier = Modifier.padding(2.dp)) {
                             Row() {
                                 AsyncImage(
                                     model = ImageRequest.Builder(LocalContext.current).data(entry.image?.href).crossfade(true).build(),
@@ -53,9 +52,9 @@ fun AlbumDetailDialog(context: Context?, entry: Entry?, openDialog: MutableState
                                 )
                                 Column(modifier = Modifier.padding(5.dp)) {
                                     Text(text = entry.name)
-                                    Text(text = entry.releaseDate)
-                                    Text(text = entry.price.displayText)
-                                    Text(text = entry.category.label)
+                                    Text(text = entry.releaseDate, style = MaterialTheme.typography.caption)
+                                    Text(text = entry.price.displayText, style = MaterialTheme.typography.caption)
+                                    Text(text = entry.category.label, style = MaterialTheme.typography.caption)
                                 }
                             }
                             Text(
@@ -63,7 +62,7 @@ fun AlbumDetailDialog(context: Context?, entry: Entry?, openDialog: MutableState
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .align(Alignment.CenterHorizontally),
-                                style = MaterialTheme.typography.caption,
+                                style = MaterialTheme.typography.caption
                             )
 
                             Row(
