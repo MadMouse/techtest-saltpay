@@ -1,15 +1,12 @@
 package co.saltpay.crystalclear.ui.shared.ui
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,14 +20,17 @@ import co.saltpay.crystalclear.R
 import co.saltpay.crystalclear.core.model.Entry
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import java.text.SimpleDateFormat
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AlbumCover(entry: Entry, caption: String? = null, favourite: Boolean = false) {
+fun AlbumCover(entry: Entry, caption: String? = null, favourite: Boolean = false, onItemClickListener: () -> Unit) {
     Card(
         Modifier
             .padding(5.dp)
-            .clickable { }, elevation = 5.dp
+            .combinedClickable(
+                onClick = onItemClickListener
+            ),
+        elevation = 5.dp,
     ) {
         ConstraintLayout(modifier = Modifier.padding(5.dp)) {
             val (coverId, textId, favouriteId) = createRefs()
@@ -56,13 +56,12 @@ fun AlbumCover(entry: Entry, caption: String? = null, favourite: Boolean = false
                     })
 
 
-                Icon(if (favourite) Icons.Filled.Favorite else Icons.TwoTone.Favorite, contentDescription = "Favorite",
-                    modifier = Modifier.constrainAs(favouriteId) {
-                        top.linkTo(coverId.top, margin = 1.dp)
-                        end.linkTo(coverId.end, margin = 1.dp)
-                    }
-
-                )
+//                Icon(if (favourite) Icons.Filled.Favorite else Icons.TwoTone.Favorite, contentDescription = "Favorite",
+//                    modifier = Modifier.constrainAs(favouriteId) {
+//                        top.linkTo(coverId.top, margin = 1.dp)
+//                        end.linkTo(coverId.end, margin = 1.dp)
+//                    }
+//                )
 
             }
         }

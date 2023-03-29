@@ -1,5 +1,6 @@
 package co.saltpay.crystalclear.ui.landing
 
+import AlbumDetailDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,6 +52,7 @@ class LandingFragment : Fragment() {
 
     private val viewModel: AlbumnsViewModel by activityViewModels()
 
+    private var currentEntry: Entry? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,6 +78,7 @@ class LandingFragment : Fragment() {
     fun LandingPageApp() {
         val topAlbums = viewModel.topAlbumsLiveData.observeAsState()
         val searchState = remember { mutableStateOf(TextFieldValue("")) }
+        val openDialog = remember { mutableStateOf(false) }
         Surface() {
             Column(
                 modifier = Modifier.paint(painterResource(id = R.drawable.bg3), contentScale = ContentScale.Crop)
@@ -105,6 +108,7 @@ class LandingFragment : Fragment() {
 
     @Composable
     fun LoadAlbumsCarousel(title: String, entries: List<Entry>, enableSort: Boolean = true) {
+        val openDialogAlbum = remember { mutableStateOf(false) }
         Column() {
             Row() {
                 Text(
@@ -125,14 +129,23 @@ class LandingFragment : Fragment() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(entries) {
-                    AlbumCover(entry = it, caption = it.name)
+                    AlbumCover(entry = it, caption = it.name, false) {
+                        currentEntry = it
+                        openDialogAlbum.value = true
+                    }
                 }
+            }
+            if (openDialogAlbum.value && currentEntry != null) {
+                AlbumDetailDialog(context, currentEntry, openDialogAlbum)
+            } else {
+                currentEntry = null
             }
         }
     }
 
     @Composable
     fun LoadAlbumsReleaseCarousel(title: String, entries: List<Entry>) {
+        val openDialog = remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -158,10 +171,20 @@ class LandingFragment : Fragment() {
                 items(entries) {
                     val formatDate = SimpleDateFormat("MMM dd, yyyy").parse(it.releaseDate)
                     formatDate?.let { it1 ->
-                        AlbumCover(entry = it, SimpleDateFormat("MMM dd, yyyy").format(it1), true)
+                        AlbumCover(entry = it, SimpleDateFormat("MMM dd, yyyy").format(it1), true) {
+                            currentEntry = it
+                            openDialog.value = true
+                        }
                     }
                 }
             }
+
+            if (openDialog.value && currentEntry != null) {
+                AlbumDetailDialog(context, currentEntry, openDialog)
+            } else {
+                currentEntry = null
+            }
+
         }
     }
 
