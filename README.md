@@ -1,8 +1,27 @@
 # Project Notes
 
-### [Roadmap](docs/Roadmap.md)
+## Wrap up
+As with all tech tests there has to be a time when you draw a "line in the sand", alas I have reached the end of the time boxed for this project.
 
-### [Known Issues](docs/KnownIssues.md)
+I would like to thank you for the opportunity give a quick handover summary.
+
+##### Roadmap
+###### - [Roadmap](docs/Roadmap.md)
+
+##### incomplete features
+- Favorites
+  1. Core tests are not complete
+  2. UI components are hidden not deleted
+
+##### Unit tests
+- Due to time constraints there are incomplete unit tests, As I was using a sudo  TDD approach, I implement a single larger test.
+
+##### UI testing (Weakest area)
+- Tried to use the new UI test framework with compose and fragments, this was an interesting learning curve and have decided not to include these learnings in the review.   
+
+#####  Area's to be improved
+###### - [Known Issues](docs/KnownIssues.md)
+
 
 ## Approach
 The project will be treated as a hackathon project time boxed to 20 hours, This will be spread over 5 days with multiple milestones.
@@ -23,14 +42,13 @@ The key milestone will be at the 15 hour mark, this will determine the final fea
     - I would like to know what is deemed as adequate?
     - What percentage does testing factor into the final assessment?
 
-3. Document your code as if it were going into production.
+1. Document your code as if it were going into production.
     - I would like to know what is expected?
         - Code should be self documenting is written correctly.
         - Release Notes?
         - Penetration testing?
         - Security review?
         - Testing sign off?
-
 ---
 
 ### Objective
